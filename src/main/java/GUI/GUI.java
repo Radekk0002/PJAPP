@@ -1,13 +1,25 @@
 package GUI;
 
+import GUI.SaveToFileMethods.SaveToFileMethods;
 import Library.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static GUI.HttpMethods.HttpConnectionMethods.GetBooks;
 
 
 public class GUI implements ActionListener {
@@ -67,7 +79,16 @@ public class GUI implements ActionListener {
     }
     public static void main(String[] args){
         new GUI();
+        // test zapytania o zwrot wszystkich książek
+        books = GetBooks("http://localhost:8000/getBooks");
 
+        // zapisywanie do pliku
+        try {
+            SaveToFileMethods.saveJsonToFile(books);
+            SaveToFileMethods.saveXMLToFile(books);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
