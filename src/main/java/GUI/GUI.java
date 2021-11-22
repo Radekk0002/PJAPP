@@ -21,6 +21,9 @@ import java.util.List;
 
 import static GUI.HttpMethods.HttpConnectionMethods.GetBooks;
 
+import static GUI.HttpMethods.HttpConnectionMethods.Wypozycz;
+
+
 
 public class GUI implements ActionListener {
     JFrame frame = new JFrame();
@@ -81,6 +84,10 @@ public class GUI implements ActionListener {
         new GUI();
         // test zapytania o zwrot wszystkich książek
         books = GetBooks("http://localhost:8000/getBooks");
+
+        System.out.println(books.get(0));
+
+        Wypozycz("http://localhost:8000/borrow", 0);
 
         // zapisywanie do pliku
         try {

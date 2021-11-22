@@ -49,15 +49,13 @@ public class Main {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            int id = Integer.parseInt(queryToMap(t.getRequestURI().getQuery()).get("id"));
-
+            int id = Integer.parseInt(queryToMap(t.getRequestURI().getQuery()).get("bookId"));
             Map<String, Object> resp = new HashMap<>();
             resp.put("status", 200);
             resp.put("msg", "Odp zwrotna");
 
             Gson gson = new Gson();
             String json = gson.toJson(resp);
-            System.out.println(json);
 
             t.sendResponseHeaders(200, json.length());
             OutputStream os = t.getResponseBody();
@@ -75,7 +73,7 @@ public class Main {
         @Override
         public void handle(HttpExchange t) throws IOException {
 
-            int id = Integer.parseInt(queryToMap(t.getRequestURI().getQuery()).get("id"));
+            int id = Integer.parseInt(queryToMap(t.getRequestURI().getQuery()).get("bookId"));
 
             Map<String, Object> resp = new HashMap<>();
             resp.put("status", 200);
