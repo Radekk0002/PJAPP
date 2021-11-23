@@ -8,6 +8,10 @@
     "title": "Balladyna"
   },
   {
+    "id": 2,
+    "title": "Kamienie na Szaniec"
+  },
+  {
     "id": 3,
     "title": "Pani Bovary"
   },
@@ -38,9 +42,5 @@
   {
     "id": 10,
     "title": "Quo Vadis"
-  },
-  {
-    "id": 7,
-    "title": "Lalka"
   }
 ]

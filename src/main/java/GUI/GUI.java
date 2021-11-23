@@ -271,12 +271,12 @@ public class GUI implements ActionListener {
             notepad.setVisible(false);
             button_wypozycz.setVisible(false);
 
-            List<Book> TEST = GetBooks(URL+"getBooks",false);
+            List<Book> books = GetBooks(URL+"getBooks",false);
 
             model.clear();
 
-            for(int i = 0; i<TEST.size(); i++) {
-                model.addElement(TEST.get(i));
+            for(int i = 0; i<books.size(); i++) {
+                model.addElement(books.get(i));
             }
             spwypo.setLeftComponent(new JScrollPane(books2));
 
@@ -326,12 +326,12 @@ public class GUI implements ActionListener {
             notepad.setText(library.booksInLibrary());
             notepad.setVisible(false);
 
-            List<Book> TEST = GetBooks(URL+"getBooks",true);
+            List<Book> books = GetBooks(URL+"getBooks",true);
 
             model.clear();
 
-            for(int i = 0; i<TEST.size(); i++) {
-                model.addElement(TEST.get(i));
+            for(int i = 0; i<books.size(); i++) {
+                model.addElement(books.get(i));
             }
             spwypo.setLeftComponent(new JScrollPane(books2));
             spwypo.setVisible(true);
@@ -390,17 +390,17 @@ public class GUI implements ActionListener {
         if(source == button_wypozycz2)
         {
             int id = books2.getSelectedValue().id;
-            Map<String, Object> test = Wypozycz(URL + "borrow", id);
-            System.out.println(test.get("msg"));
+            Map<String, Object> resp = Wypozycz(URL + "borrow", id);
+            System.out.println(resp.get("msg"));
 
             library.wypozycz(books2.getSelectedValue());
 
-            List<Book> TEST = GetBooks(URL+"getBooks",false);
+            List<Book> books = GetBooks(URL+"getBooks",false);
 
             model.clear();
 
-            for(int i = 0; i<TEST.size(); i++) {
-                model.addElement(TEST.get(i));
+            for(int i = 0; i<books.size(); i++) {
+                model.addElement(books.get(i));
             }
 
             spwypo.setLeftComponent(new JScrollPane(books2));
@@ -419,25 +419,31 @@ public class GUI implements ActionListener {
                     int id = Integer.parseInt(tfzwroc1.getText());
                     //Book nowa = new Book(id, tfzwroc2.getText());
 
-                    Map<String, Object> test = Zwroc(URL + "return", id);
-                    System.out.println(test.get("msg"));
+                    Map<String, Object> resp = Zwroc(URL + "return", id);
+                    System.out.println(resp.get("msg"));
 
                     //library.zwroc(nowa);
                     //System.out.print(books.size());
 
-                    model.clear();
+//                    model.clear();
+//
+//                    for (int i = 0; i < books.size(); i++) {
+//                        model.addElement(books.get(i));
+//                    }
 
-                    for (int i = 0; i < books.size(); i++) {
-                        model.addElement(books.get(i));    
-                    }
 
-                    tfzwroc1.setText("");
-                    tfzwroc2.setText("");
-                    komunikatzwroc3.setVisible(true);
-                    //250,220,200,80
-                    //komunikatzwroc3.setBounds(125, 270, 200, 20);
                     komunikatzwroc3.setHorizontalAlignment(SwingConstants.CENTER);
                     komunikatzwroc3.setBounds(250,150,200,40);
+
+                    if((Double)resp.get("status") == 200){
+                        tfzwroc1.setText("");
+                        tfzwroc2.setText("");
+                        komunikatzwroc3.setText("Zwrócono ksiażkę do biblioteki");
+                    }else{
+                        komunikatzwroc3.setText(resp.get("msg").toString());
+                    }
+
+                    komunikatzwroc3.setVisible(true);
                 }
                 else{
                     komunikatzwroc2.setVisible(true);
@@ -449,13 +455,14 @@ public class GUI implements ActionListener {
         }
         if(source == button_xml)
         {
-
+            List<Book> books = GetBooks(URL+"getBooks",true);
             STF.saveXMLToFile(books);
 
         }
         if(source == button_json)
         {
             try {
+                List<Book> books = GetBooks(URL+"getBooks",true);
                 STF.saveJsonToFile(books);
             } catch (IOException ioException) {
                 ioException.printStackTrace();

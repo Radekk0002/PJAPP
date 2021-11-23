@@ -115,12 +115,15 @@ public class Main {
             int id = Integer.parseInt(queryToMap(t.getRequestURI().getQuery()).get("bookId"));
             int rows = connToDB.return_book(id);
             Map<String, Object> resp = new HashMap<>();
-            resp.put("status", 200);
-            if(rows > 0)
-                resp.put("msg", "Zwrócono");
-            else
-                resp.put("msg", "Nie ma takiej książki");
 
+            if(rows > 0) {
+                resp.put("status", 200);
+                resp.put("msg", "Zwrócono");
+            }
+            else {
+                resp.put("status", 400);
+                resp.put("msg", "Nie ma takiej książki");
+            }
             System.out.println(resp.get("msg"));
             Gson gson = new Gson();
             String json = gson.toJson(resp);
@@ -135,10 +138,6 @@ public class Main {
     }
 
     static class GetBooksHandler implements HttpHandler {
-        /*String connToDB;
-        public GetBooksHandler(String connToDB){
-            this.connToDB= connToDB;
-        }*/
         H2Database connToDB;
         public GetBooksHandler(H2Database connToDB){
             this.connToDB = connToDB;
@@ -146,7 +145,6 @@ public class Main {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            //String test = queryToMap(t.getRequestURI().getQuery()).get("allbooks");
             boolean allbooks = Boolean.parseBoolean(queryToMap(t.getRequestURI().getQuery()).get("allbooks"));
             List<Book> books = connToDB.booksInLibrary(allbooks);
 
