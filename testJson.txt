@@ -1,0 +1,46 @@
+[
+  {
+    "id": 0,
+    "title": "W pustyni i puszczy"
+  },
+  {
+    "id": 1,
+    "title": "Balladyna"
+  },
+  {
+    "id": 3,
+    "title": "Pani Bovary"
+  },
+  {
+    "id": 4,
+    "title": "Hamlet"
+  },
+  {
+    "id": 5,
+    "title": "Wesele"
+  },
+  {
+    "id": 6,
+    "title": "Mistrz i Małgorzata"
+  },
+  {
+    "id": 7,
+    "title": "Lalka"
+  },
+  {
+    "id": 8,
+    "title": "Zbrodnia i kara"
+  },
+  {
+    "id": 9,
+    "title": "Chłopi"
+  },
+  {
+    "id": 10,
+    "title": "Quo Vadis"
+  },
+  {
+    "id": 7,
+    "title": "Lalka"
+  }
+]
